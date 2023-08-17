@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kalkulator BMI</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.5.3/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container mt-5">
+    <div class="card">
+      <div class="card-header bg-primary text-white">
+        <h1 class="text-center">Kalkulator BMI</h1>
+      </div>
+      <div class="card-body">
+        <div class="mb-3">
+          <label for="height" class="form-label">Tinggi (cm):</label>
+          <input type="number" class="form-control" id="height" placeholder="Tinggi dalam cm" required>
+        </div>
+        <div class="mb-3">
+          <label for="weight" class="form-label">Berat (kg):</label>
+          <input type="number" class="form-control" id="weight" placeholder="Berat dalam kg" required>
+        </div>
+        <button id="calculateBtn" class="btn btn-primary">Hitung</button>
+        <div id="result" class="mt-3"></div>
+      </div>
+    </div>
+  </div>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+  <script>
+    document.getElementById('calculateBtn').addEventListener('click', function() {
+      const height = parseFloat(document.getElementById('height').value);
+      const weight = parseFloat(document.getElementById('weight').value);
+      
+      if (isNaN(height) || isNaN(weight)) {
+        document.getElementById('result').innerHTML = 'Masukkan nilai yang valid.';
+        return;
+      }
+      
+      const bmi = weight / ((height / 100) ** 2);
+      let status = '';
+      let tips = '';
+
+      if (bmi < 18.5) {
+        status = 'Kekurangan berat badan';
+        tips = 'Mungkin Anda perlu meningkatkan asupan makanan dan mengikuti program latihan untuk membantu meningkatkan berat badan.';
+      } else if (bmi >= 18.5 && bmi < 25) {
+        status = 'Berat badan ideal';
+        tips = 'Anda sudah memiliki berat badan yang ideal. Tetap pertahankan pola makan sehat dan rutin berolahraga.';
+      } else {
+        status = 'Kelebihan berat badan';
+        tips = 'Pertimbangkan untuk mengurangi asupan kalori dan menjalani program latihan fisik secara teratur untuk mencapai berat badan yang lebih sehat.';
+      }
+      
+      const resultMessage = `<p>BMI Anda: ${bmi.toFixed(2)}</p><p>Status: ${status}</p><p><strong>Tips:</strong> ${tips}</p>`;
+      document.getElementById('result').innerHTML = resultMessage;
+    });
+  </script>
+</body>
+</html>
